@@ -1,39 +1,8 @@
-package algoritmos.b__informada;
+package algoritmos;
 
 import java.util.PriorityQueue;
 
-public class EightQueen {
-
-
-   // Size of the board should be 8x8 for the eight queens problem
-   public static final int SIZE_OF_BOARD = 8;
-  
-   boolean[][] BOARD_BOOLEAN;
-   // For an empty place
-   public static final boolean EMPTY_PLACE = false;
-   // For a place that contains a queen
-   public static final boolean QUEEN_PLACE = true;
-   // The number of moves
-   public static final int MOVES_NUMBER = 4;
-   // The horizontal moves
-   int[] Horizontal_Moves;
-   // The Vertical moves
-   int[] Vertical_Moves;
- 
-   public int Queens = 0;
- 
-   /**
- * 
- */
-public EightQueen() {
-     // Constructor creates an empty board
-     BOARD_BOOLEAN = new boolean[SIZE_OF_BOARD][SIZE_OF_BOARD];
-     for (int row = 0; row < BOARD_BOOLEAN.length; row++) {
-       for (int col = 0; col < BOARD_BOOLEAN[row].length; col++) {
-         BOARD_BOOLEAN[row][col] = EMPTY_PLACE;
-       }
-     }
-    }
+public class B__informada extends EightQueen {
 
   // Método para calcular la heurística: número de pares de reinas que se atacan
   final int calculateHeuristic() {
@@ -112,7 +81,7 @@ public boolean Queens_Placing_AStar(int Board_Column) {
 
         // Generar sucesores del estado actual
         for (int i = 0; i < SIZE_OF_BOARD; i++) {
-          if (!countAttacks(i, currentState.column)) {
+          if (countAttacks(i, currentState.column) == 0) {
             boolean[][] newBoard = currentState.board.clone();
             newBoard[i][currentState.column] = QUEEN_PLACE;
             int newHeuristic = calculateHeuristic();
