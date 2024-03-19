@@ -1,47 +1,6 @@
-package algoritmos.a__no_informada;
+package algoritmos;
 
-public class EightQueen {
-    // Size of the board should be 8x8 for the eight queens problem
-    public static final int SIZE_OF_BOARD = 8;
-  
-    boolean[][] BOARD_BOOLEAN;
-    // For an empty place
-    public static final boolean EMPTY_PLACE = false;
-    // For a place that contains a queen
-    public static final boolean QUEEN_PLACE = true;
-    // The number of moves
-    public static final int MOVES_NUMBER = 4;
-    // The horizontal moves
-    int[] Horizontal_Moves;
-    // The Vertical moves
-    int[] Vertical_Moves;
-  
-    public int Queens = 0;
-  
-    public EightQueen() {
-      // Constructor creates an empty board
-      BOARD_BOOLEAN = new boolean[SIZE_OF_BOARD][SIZE_OF_BOARD];
-      for (int row = 0; row < BOARD_BOOLEAN.length; row++) {
-        for (int col = 0; col < BOARD_BOOLEAN[row].length; col++) {
-          BOARD_BOOLEAN[row][col] = EMPTY_PLACE;
-        }
-      }
-  
-      Horizontal_Moves = new int[MOVES_NUMBER];
-      Vertical_Moves = new int[MOVES_NUMBER];
-      // move up right
-      Horizontal_Moves[0] = -1;
-      Vertical_Moves[0] = 1;
-      // move down left
-      Horizontal_Moves[1] = 1;
-      Vertical_Moves[1] = -1;
-      // move up left
-      Horizontal_Moves[2] = -1;
-      Vertical_Moves[2] = -1;
-      // move down right
-      Horizontal_Moves[3] = 1;
-      Vertical_Moves[3] = 1;
-    }
+public class A__no_informada extends EightQueen {
   
     public boolean Queens_Placing(int Board_Column) {
       if (Board_Column >= SIZE_OF_BOARD) {
@@ -140,13 +99,5 @@ public class EightQueen {
       }
   
       System.out.printf("%d queens problem is solved, the queens are placed.\n", Count);
-    }
-  
-    public static void main(String[] arg) {
-      EightQueen EightQueen_Problem = new EightQueen();
-      EightQueen_Problem.Queens_Placing(0);
-      EightQueen_Problem.Display_Board();
-    }
-   
-    
+    }    
 }
