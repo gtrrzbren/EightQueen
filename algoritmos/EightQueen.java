@@ -43,10 +43,32 @@ public class EightQueen {
     Vertical_Moves[3] = 1;
 }
 
+public void Display_Board() {
+  int Count = 0;
+  for (int Board_Row = 0; Board_Row < BOARD_BOOLEAN.length; Board_Row++) {
+    for (int Board_Column = 0; Board_Column < BOARD_BOOLEAN[Board_Row].length; Board_Column++) {
+      if (BOARD_BOOLEAN[Board_Row][Board_Column] == true) {
+        System.out.printf("|%s| ", " Q ");
+        Count++;
+      } else {
+        System.out.printf("|%s| ", " X ");
+      }
+    }
+    System.out.println();
+  }
+
+  System.out.printf("%d queens problem is solved, the queens are placed.\n", Count);
+}
 
   public static void main(String[] arg) {
     A__no_informada enProfundidad = new A__no_informada();
     enProfundidad.Queens_Placing(0);
     enProfundidad.Display_Board();
+    B__informada aasterisco = new B__informada();
+    aasterisco.Queens_Placing_AStar(0);
+    aasterisco.Display_Board(); 
+    C__local escaladorColinas = new C__local();
+    escaladorColinas.hillClimbing();
+    escaladorColinas.printBoard();
   }
 }

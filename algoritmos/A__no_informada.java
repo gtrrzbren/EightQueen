@@ -84,20 +84,5 @@ public class A__no_informada extends EightQueen {
       return Queen_Condition;
     }
   
-    public void Display_Board() {
-      int Count = 0;
-      for (int Board_Row = 0; Board_Row < BOARD_BOOLEAN.length; Board_Row++) {
-        for (int Board_Column = 0; Board_Column < BOARD_BOOLEAN[Board_Row].length; Board_Column++) {
-          if (BOARD_BOOLEAN[Board_Row][Board_Column] == true) {
-            System.out.printf("|%s| ", " Q ");
-            Count++;
-          } else {
-            System.out.printf("|%s| ", " X ");
-          }
-        }
-        System.out.println();
-      }
-  
-      System.out.printf("%d queens problem is solved, the queens are placed.\n", Count);
-    }    
+        
 }
