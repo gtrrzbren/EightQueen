@@ -1,116 +1,136 @@
 package algoritmos;
 
 import java.util.PriorityQueue;
+import java.util.Arrays;
 
 public class B__informada extends EightQueen {
 
+    public static final int SIZE_OF_BOARD = 8;
+    private PriorityQueue<State> openSet;
+    private boolean[][] BOARD_BOOLEAN;
+
+    public B__informada() {
+        BOARD_BOOLEAN = new boolean[SIZE_OF_BOARD][SIZE_OF_BOARD];
+        openSet = new PriorityQueue<>((a, b) -> a.heuristic - b.heuristic);
+        initializeBoard();
+    }
+
+    // Método para inicializar el tablero con una configuración aleatoria de reinas
+    private void initializeBoard() {
+      for (int i = 0; i < SIZE_OF_BOARD; i++) {
+        Arrays.fill(BOARD_BOOLEAN[i], Boolean.FALSE); // Simple initial solution with one queen per row
+        }
+    }
+
+    // Método para calcular la heurística de un estado
+    private int calculateHeuristic(boolean[][] board) {
+        int attackingPairs = 0;
+        for (int i = 0; i < SIZE_OF_BOARD; i++) {
+            for (int j = 0; j < SIZE_OF_BOARD; j++) {
+                if (board[i][j]) {
+                    // Check for attacks in the same row
+                    for (int k = 0; k < SIZE_OF_BOARD; k++) {
+                        if (board[i][k] && k != j) {
+                            attackingPairs++;
+                        }
+                    }
+                    // Check for attacks in the same column
+                    for (int k = 0; k < SIZE_OF_BOARD; k++) {
+                        if (board[k][j] && k != i) {
+                            attackingPairs++;
+                        }
+                    }
+                    // Check for attacks in the diagonals
+                    for (int k = 1; k < SIZE_OF_BOARD; k++) {
+                        if (i+k < SIZE_OF_BOARD && j+k < SIZE_OF_BOARD && board[i+k][j+k]) {
+                            attackingPairs++;
+                        }
+                        if (i+k < SIZE_OF_BOARD && j-k >= 0 && board[i+k][j-k]) {
+                            attackingPairs++;
+                        }
+                        if (i-k >= 0 && j+k < SIZE_OF_BOARD && board[i-k][j+k]) {
+                            attackingPairs++;
+                        }
+                        if (i-k >= 0 && j-k >= 0 && board[i-k][j-k]) {
+                            attackingPairs++;
+                        }
+                    }
+                }
+            }
+        }
+        return attackingPairs / 2; // Each pair is counted twice
+    }
+
+    // Método para verificar si el estado es una solución
+    private boolean isGoalState(boolean[][] board) {
+        return calculateHeuristic(board) == 0;
+    }
+
+    // Método para generar sucesores de un estado
+    private void generateSuccessors(State currentState) {
+        for (int row = 0; row < SIZE_OF_BOARD; row++) {
+            for (int col = 0; col < SIZE_OF_BOARD; col++) {
+                if (currentState.board[row][col]) {
+                    // Move the queen in this column
+                    for (int newRow = 0; newRow < SIZE_OF_BOARD; newRow++) {
+                        if (newRow != row) {
+                            boolean[][] newBoard = deepCloneBoard(currentState.board);
+                            newBoard[row][col] = false;
+                            newBoard[newRow][col] = true;
+                            int newHeuristic = calculateHeuristic(newBoard);
+                            openSet.add(new State(newBoard, newHeuristic));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     // Método para realizar una clonación profunda de un tablero
     private boolean[][] deepCloneBoard(boolean[][] original) {
-      boolean[][] copy = new boolean[original.length][];
-      for (int i = 0; i < original.length; i++) {
-        copy[i] = original[i].clone();
-      }
-      return copy;
-    }
-  
-    // Método para calcular la heurística: número de pares de reinas que se atacan
-    final int calculateHeuristic(boolean[][] board) {
-      int attackingPairs = 0;
-      for (int i = 0; i < SIZE_OF_BOARD; i++) {
-        for (int j = 0; j < SIZE_OF_BOARD; j++) {
-          if (board[i][j] == QUEEN_PLACE) {
-            attackingPairs += countAttacks(board, i, j);
-          }
+        boolean[][] copy = new boolean[original.length][original[0].length];
+        for (int i = 0; i < original.length; i++) {
+            System.arraycopy(original[i], 0, copy[i], 0, original[i].length);
         }
-      }
-      return attackingPairs / 2; // Cada par se cuenta dos veces
+        return copy;
     }
-  
-    // Método para contar los ataques de una reina en (row, col)
-    private int countAttacks(boolean[][] board, int Board_Row, int Board_Column) {
-      int count = 0;
-      // Contar ataques en la misma fila
-      for (int i = 0; i < SIZE_OF_BOARD; i++) {
-        if (i != Board_Column && board[Board_Row][i]) {
-          count++;
-        }
-      }
-      // Contar ataques en la misma columna
-      for (int i = 0; i < SIZE_OF_BOARD; i++) {
-        if (i != Board_Row && board[i][Board_Column]) {
-          count++;
-        }
-      }
-      // Contar ataques en las diagonales
-      int[] directions = {-1, 1};
-      for (int i = 0; i < directions.length; i++) {
-        for (int j = 0; j < directions.length; j++) {
-          int x = Board_Row;
-          int y = Board_Column;
-          while (x >= 0 && x < SIZE_OF_BOARD && y >= 0 && y < SIZE_OF_BOARD) {
-            if (x != Board_Row || y != Board_Column) {
-              if (board[x][y]) {
-                count++;
-                break; // Romper el bucle después de encontrar una reina
-              }
-            }
-            x += directions[i];
-            y += directions[j];
-          }
-        }
-      }
-      return count;
-    }
-  
-    // Método para verificar si es seguro colocar una reina en (row, col)
-    private boolean isSafeToPlaceQueen(boolean[][] board, int row, int col) {
-      // Verificar ataques en la fila, columna y diagonales
-      return countAttacks(board, row, col) == 0;
-    }
-  
-    // Método A* para colocar reinas
-    public boolean Queens_Placing_AStar(int Board_Column) {
-      if (Board_Column >= SIZE_OF_BOARD) {
-        return true;
-      } else {
-        PriorityQueue<State> openSet = new PriorityQueue<>();
-        openSet.add(new State(deepCloneBoard(BOARD_BOOLEAN), calculateHeuristic(BOARD_BOOLEAN), Board_Column));
-  
+
+    // Método A* para resolver el problema de las 8 reinas
+    public boolean solve() {
+        openSet.add(new State(BOARD_BOOLEAN, calculateHeuristic(BOARD_BOOLEAN)));
+
         while (!openSet.isEmpty()) {
-          State currentState = openSet.poll();
-          if (currentState.heuristic == 0) {
-            BOARD_BOOLEAN = currentState.board;
-            return true;
-          }
-  
-          for (int i = 0; i < SIZE_OF_BOARD; i++) {
-            if (isSafeToPlaceQueen(currentState.board, i, currentState.column)) {
-              boolean[][] newBoard = deepCloneBoard(currentState.board);
-              newBoard[i][currentState.column] = QUEEN_PLACE;
-              int newHeuristic = calculateHeuristic(newBoard);
-              openSet.add(new State(newBoard, newHeuristic, currentState.column + 1));
+            State currentState = openSet.poll();
+            if (isGoalState(currentState.board)) {
+                BOARD_BOOLEAN = currentState.board;
+                return true;
             }
-          }
+            generateSuccessors(currentState);
         }
         return false;
-      }
     }
-  
+
     // Clase para representar un estado en A*
-    class State implements Comparable<State> {
-      boolean[][] board;
-      int heuristic;
-      int column;
-  
-      public State(boolean[][] board, int heuristic, int column) {
-        this.board = board;
-        this.heuristic = heuristic;
-        this.column = column;
-      }
-  
-      @Override
-      public int compareTo(State other) {
-        return Integer.compare(this.heuristic, other.heuristic);
-      }
+    class State {
+        boolean[][] board;
+        int heuristic;
+
+        public State(boolean[][] board, int heuristic) {
+            this.board = board;
+            this.heuristic = heuristic;
+        }
     }
-  }
+
+    // Método para imprimir el tablero
+    public void printBoard() {
+        for (int i = 0; i < SIZE_OF_BOARD; i++) {
+            for (int j = 0; j < SIZE_OF_BOARD; j++) {
+                System.out.print(BOARD_BOOLEAN[i][j] ? " Q " : " . ");
+            }
+            System.out.println();
+        }
+    }
+
+    
+
+}

@@ -61,12 +61,20 @@ public void Display_Board() {
 }
 
   public static void main(String[] arg) {
+    //
     A__no_informada enProfundidad = new A__no_informada();
     enProfundidad.Queens_Placing(0);
     enProfundidad.Display_Board();
-    B__informada aasterisco = new B__informada();
-    aasterisco.Queens_Placing_AStar(0);
-    aasterisco.Display_Board(); 
+
+    //
+    B__informada aasterico = new B__informada();
+        if (aasterico.solve()) {
+            aasterico.printBoard();
+        } else {
+            System.out.println("No solution found.");
+        }
+
+    //
     C__local escaladorColinas = new C__local();
     escaladorColinas.hillClimbing();
     escaladorColinas.printBoard();
