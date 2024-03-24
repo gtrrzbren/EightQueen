@@ -1,5 +1,7 @@
 package algoritmos;
 
+import java.util.Scanner;
+
 public class EightQueen {
 
   // El tamaño del tablero debe ser 8x8 para el problema de las ocho reinas
@@ -45,23 +47,53 @@ public class EightQueen {
 
 
   public static void main(String[] arg) {
-  
-    System.out.println(" Búsqueda no informada en profundidad");
-    A__no_informada enProfundidad = new A__no_informada();
-    enProfundidad.Queens_Placing(0);
-    System.out.println(" Resuelto el problema de las 8 reinas por la búsqueda no informada en profundidad");
-    System.out.println();
-
-    System.out.println(" Búsqueda informada A*");
-    B__informada aasterico = new B__informada();
-    aasterico.solve(8);
-    System.out.println(" Resuelto el problema de las 8 reinas por la búsqueda informada A*");
-    System.out.println();
-
-    System.out.println(" Búsqueda local escalador de colinas");
-    C__local escaladorColinas = new C__local();
-    escaladorColinas.hillClimbing();
-    System.out.println(" Resuelto el problema de las 8 reinas por la búsqueda local escalador de colinas");
-    System.out.println();
+    ingresarLetra(); 
   }
+
+  public static void ingresarLetra() {
+        Scanner scanner = new Scanner(System.in);
+        char letra;
+
+        do {
+            System.out.println();
+            System.out.print("Por favor ingrese la letra correspondiente(a, b o c) o x para terminar: ");
+            letra = scanner.next().charAt(0);
+
+            switch (letra) {
+                case 'a':
+                System.out.println(" Búsqueda no informada en profundidad");
+                A__no_informada enProfundidad = new A__no_informada();
+                enProfundidad.Queens_Placing(0);
+                System.out.println(" Resuelto el problema de las 8 reinas por la búsqueda no informada en profundidad");
+                System.out.println();
+                ingresarLetra();
+                    break;
+                case 'b':
+                System.out.println(" Búsqueda informada A*");
+                B__informada aasterico = new B__informada();
+                aasterico.solve(8);
+                System.out.println(" Resuelto el problema de las 8 reinas por la búsqueda informada A*");
+                System.out.println();
+                ingresarLetra();
+                    break;
+                case 'c':
+                System.out.println(" Búsqueda local escalador de colinas");
+                C__local escaladorColinas = new C__local();
+                escaladorColinas.hillClimbing();
+                System.out.println(" Resuelto el problema de las 8 reinas por la búsqueda local escalador de colinas");
+                System.out.println();
+                ingresarLetra();
+                    break;
+                case 'x':
+                System.out.println();
+                System.out.print("Gracias por observar esta solución :)");
+                    break;
+                default:
+                    System.out.println("La letra ingresada es incorrecta. Por favor ingrese una letra válida.");
+                    break;
+            }
+        } while (letra != 'a' && letra != 'b' && letra != 'c' && letra != 'x');
+
+        scanner.close();
+    }
 }
