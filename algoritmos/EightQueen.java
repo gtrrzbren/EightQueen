@@ -73,7 +73,7 @@ public void Display_Board() {
         } else {
             System.out.println("No solution found.");
         }*/
-    aasterico.busq();
+    aasterico.solve(8);
 
     //
     //C__local escaladorColinas = new C__local();
