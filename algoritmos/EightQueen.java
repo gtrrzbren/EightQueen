@@ -62,21 +62,22 @@ public void Display_Board() {
 
   public static void main(String[] arg) {
     //
-    A__no_informada enProfundidad = new A__no_informada();
-    enProfundidad.Queens_Placing(0);
-    enProfundidad.Display_Board();
+    //A__no_informada enProfundidad = new A__no_informada();
+    //enProfundidad.Queens_Placing(0);
+    //enProfundidad.Display_Board();
 
     //
     B__informada aasterico = new B__informada();
-        if (aasterico.solve()) {
+       /*if (aasterico.solve()) {
             aasterico.printBoard();
         } else {
             System.out.println("No solution found.");
-        }
+        }*/
+    aasterico.metodoDePrueba();
 
     //
-    C__local escaladorColinas = new C__local();
-    escaladorColinas.hillClimbing();
-    escaladorColinas.printBoard();
+    //C__local escaladorColinas = new C__local();
+    //escaladorColinas.hillClimbing();
+    //escaladorColinas.printBoard();
   }
 }
