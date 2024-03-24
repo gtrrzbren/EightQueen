@@ -12,7 +12,7 @@ public class B__informada extends EightQueen {
             State current = openSet.poll();
             current.printBoard();
             if (current.h == 0) {
-                System.out.println("Solution found:");
+                System.out.println("Se encuentra como solución final:");
                 current.printBoard();
                 return;
             }
