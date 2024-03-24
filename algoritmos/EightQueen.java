@@ -45,23 +45,23 @@ public class EightQueen {
 
 
   public static void main(String[] arg) {
-    //
+  
     System.out.println(" Búsqueda no informada en profundidad");
     A__no_informada enProfundidad = new A__no_informada();
     enProfundidad.Queens_Placing(0);
     System.out.println(" Resuelto el problema de las 8 reinas por la búsqueda no informada en profundidad");
     System.out.println();
 
-    //
     System.out.println(" Búsqueda informada A*");
     B__informada aasterico = new B__informada();
     aasterico.solve(8);
     System.out.println(" Resuelto el problema de las 8 reinas por la búsqueda informada A*");
     System.out.println();
 
-    //
-    //C__local escaladorColinas = new C__local();
-    //escaladorColinas.hillClimbing();
-    //escaladorColinas.printBoard();
+    System.out.println(" Búsqueda local escalador de colinas");
+    C__local escaladorColinas = new C__local();
+    escaladorColinas.hillClimbing();
+    System.out.println(" Resuelto el problema de las 8 reinas por la búsqueda local escalador de colinas");
+    System.out.println();
   }
 }

@@ -77,6 +77,8 @@ public class C__local extends EightQueen {
         queens = bestBoard.clone();
         currentHeuristic = bestHeuristic;
       }
+      printBoard();
+      System.out.println();
     }
   }
 
