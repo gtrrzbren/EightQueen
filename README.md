@@ -6,3 +6,5 @@ Aplicación desarrollada en Java con el objetivo de lograr convalidar el primer 
 
 Autora del código:
 - Brenda Silvia Gutierrez Herrero
+
+UPDATE: después de una compleja exposición LOGRÉ CONVALIDAR EL PARCIAL, SIIIIUUUUU :)
